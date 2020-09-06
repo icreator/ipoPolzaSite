@@ -1,0 +1,31 @@
+<html>
+    {{=CAT(
+    'Здравствуйте!',BR(),
+    'Вы приняты в Инновационное потребительское общество "Польза"',BR(),
+    amo_inv and CAT('Ваш вступимтельный взнос составил: ', B(amo_inv-amo),'[',unit.ab,']',BR()) or '',
+    amo and CAT('Зачтен Ваш паевой взнос в фонд:',B(fond_in.name),' (',fond_in.cod,') в размере ', B(amo),'[',unit.ab,']',BR()) or '',
+    BR(),
+    'Ваш идентификационный номер: ', B(memb_id), BR(),
+    'Ссылка на статистику: ',
+    A(B('вашего счета'), _href='http://ipo-polza.ru/transs/index/members/view/members/%s' % memb_id),BR(),
+    BR(),
+)}}
+Ваши реквизиты:<br>
+{{for r in db(db.memb_accs.member_id == memb_id).select():}}
+    {{if not r.acc: continue}}
+    {{=CAT(T('счет'), r.acc, BR(),BR())}}
+    {{pass}}
+    <br>
+Ваши адреса крипто-имущества:<br>
+{{for r in db(db.memb_x_accs.member_id == memb_id).select():}}
+{{= r.addr}}<br>
+{{pass}}
+<br>
+<br>
+Ваш код партнера ("подарочный код" для ваших друзей): {{=B(memb.prt_cod)}}<br>
+    <br>
+<br>
+    С уважением, администррация сайта
+    {{=A('ipo-polza.ru', _href=URL('default', 'index', scheme='http', host='ipo-polza.ru'))}}
+    
+</html>

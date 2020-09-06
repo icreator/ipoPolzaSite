@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+{{=UL(
+A('Статистика по пайщикам', _href=URL(args=['members'])),
+A('Статистика по фондам', _href=URL(args=['fonds'])),
+A('Статистика по имуществу', _href=URL(args=['goods'])),
+A('Транзакции', _href=URL(args=['trans'])),
+A('Начисления', _href=URL(args=['trans_calc'])),
+)}}
+<br>
+{{=t or''}}

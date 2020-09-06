@@ -1,0 +1,6 @@
+{{extend 'layout.html'}}
+
+{{#=BEAUTIFY(response._vars)}}
+{{=T('Добавление транзакции для')}}
+{{=B(memb.email,' - ', memb.l_name + ' ' + memb.f_name)}}<br>
+{{=form}}

@@ -1,0 +1,70 @@
+{{extend 'layout.html'}}
+
+{{if form:}}
+{{=form}}
+<br><h6>
+    Для повторного открытия этой формы используйте эту {{=A('ссылку', _href=URL('addrs', args=request.args))}}
+    или {{=A('invite', _href=URL('invite', 'index', args=request.args))}}
+</h6>
+<br>{{=T('Введите (это важно, но не обязательно) крипто-адреса своих кошельков, с которых будете переводить крипто-имущество в ПО в качестве паевых и иных взносов. Рекомендуем Вам указать по одному адресу для каждого вида крипто-имущества (биткоин, лайткоин и т.д.)')}}<br>
+{{=T('Переводы на взносы в ПО с этих адресов будут автоматически идентифицировать Вас как пайщика. Переводы с других адресов будут возвращаться обратно.')}}<BR>
+<br>
+Так же, в последствии с этих адресов Вы сможете управлять своими взносами, фондами и голосованием. Поэтому настоятельно рекомендуем ввести хотя бы один крипто-адрес.<br>
+Крипто-адреса можно будет добавить позже, уже после приема в пайщики, однако это будет стоить Вам больше времени и не бесплатно - только с помощью банковского перевода на счет общества небольшой суммы (около 50-100 рублей).<br>
+
+{{btn = "<input value='%s', type='button', onclick=\"$('#a').val(this.previousSibling.value); " % T('Проверить')}}
+{{btn = btn + "ajax('%s', " % URL('addr_check')}}
+<form action='#'>
+    <input type="text" name="a" class="hidden" id="a">
+    <div class="inputs">
+        {{#='1QGz4EQrnTXqZ37qmQx4CXQQtbyHaUMasu'}}
+        <div><input type="text" name="addrs" class="field" value="" id="a1">{{=XML(btn + "['a'], 'r%s'); \" ><span id='r%s'></span>" % (1,1))}}</div>
+        <div><input type="text" name="addrs" class="field" value="" id="a2">{{=XML(btn + "['a'], 'r%s'); \" ><span id='r%s'></span>" % (2,2))}}</div>
+    </div>
+    <a id="add">{{=T('Добавить')}}</a> | <a id="remove">Удалить</a>  | <a id="reset">Сбросить</a><br>
+<br>
+Если у Вас нет крипто-адреса или Вы не знаете что такое крипто-имущество, то рекомендуем Вам посетить страницу самого популярного из них {{=B(A('bitcoin.org', _href='http://bitcoin.org/', _target='_blank'))}} и скачать там кошелек {{=B(A('multibit.org', _href='https://multibit.org/', _target='_blank'))}} для крипто-имущества "биткоин", установить его на своем компьютере и получить свой первый крипто-адрес для приёма крипто-имущества (вкладка "Запрос" или "Принять").
+
+    <BR>
+    <table width=300px>
+        <tr>
+    <td>{{=A(T('Назад'), _href=URL('index', args=[id]), _class='button btn')}}</td>
+    <td class='right'><input name="submit" type="submit" class="submit" value="{{=T('Ввести')}}"></td>
+        </tr>
+    </table>
+</form>
+
+<script>
+$(document).ready(function(){
+
+    var i = $('.inputs').size() + 1;
+
+    $('#add').click(function() {
+        on1 = "{{=XML("<input value='%s', type='button', class='btn' " % T('Проверить'))}}"
+        on1 = on1 + "onclick=\"$('#a').val(this.previousSibling.value); " //$('#a').show(); "
+        on1 = on1 + "{{=XML("ajax('%s'," % URL('addr_check'))}}"
+        on1 = on1 + "['a'], 'r" + (i+1) + "'); \" ><span id='r" + (i+1) + "'></span>"
+        $('<div><input type="text" class="field" name="addrs" value=""  id="a"' + i + '"/>' + on1 + '</div>').fadeIn('slow').appendTo('.inputs');
+        i++;
+    });
+    $('#remove').click(function() {
+        if(i > 2) {
+            $('.field:last').remove();
+            i--;
+        }
+    });
+
+    $('#reset').click(function() {
+        while(i > 2) {
+            $('.field:last').remove();
+            i--;
+        }
+    });
+});
+</script>
+{{else:}}
+{{=CAT(
+T('Вы приняти как ассоциативный пайщик!'),BR(),
+T('На Ваш емайл выслано письмо, на всякий случай проверьте его в папке "спам".')
+)}}
+{{pass}}

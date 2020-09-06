@@ -1,0 +1,15 @@
+{
+    "content_scripts": [ {
+        "exclude_globs": [  ],
+        "exclude_matches": [  ],
+        "include_globs": [ "https://www.roi.ru/*" ],
+        "js": [ "roi.user.js" ],
+        "matches": [ "http://*/*", "https://*/*" ],
+        "run_at": "document_idle"
+    } ],
+    "converted_from_user_script": true,
+    "description": "Голосование для roi.ru",
+    "name": "roiUserJS",
+    "version": "1.0",
+    "manifest_version": 2 
+}

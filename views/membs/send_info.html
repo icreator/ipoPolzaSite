@@ -1,0 +1,21 @@
+{{if to_html:}}
+{{extend 'layout.html'}}
+{{else:}}
+{{
+right_sidebar_enabled = None
+footer_disabled = True
+}}
+{{pass}}
+
+{{=CAT(
+H4(T('Статистика по пайщику')),
+rec.y_name or '%s %s' % (rec.l_name, rec.f_name),BR(),
+UL(
+CAT(T('Ващ код партнера (подарочный код для ваших друзей)'),': ', B(rec.prt_cod)),
+CAT(T('Ваш возвращаемый пай'),': ',B(rec.bal)),
+CAT(T('Ваш невозвращаемый пай'),': ',B(rec.bal_u)),
+CAT(T('Ваш кооперативный пай'),': ',B(rec.bal_c)),
+),
+H4(T('Ваши ресурсы')),
+items,
+)}}

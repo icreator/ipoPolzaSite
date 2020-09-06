@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /default
+Allow: /progs
+Allow: /projects
+Allow: /vacs
+Allow: /roi
+Disallow: /

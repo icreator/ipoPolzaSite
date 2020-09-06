@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+
+{{#=BEAUTIFY(response._vars)}}
+{{for r in t:}}
+{{for i in r:}}
+{{=i}}
+{{pass}}<br><br><br>
+{{pass}}
